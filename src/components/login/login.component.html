@@ -1,0 +1,33 @@
+<div class="flex justify-center items-center my-5">
+  <div class="card card-border bg-base-300 w-96">
+    <div class="card-body">
+      <h2 class="card-title">Login</h2>
+      <form (ngSubmit)="onSubmit()" [formGroup]="loginForm">
+        <div class="flex flex-col space-y-4">
+          <input
+            type="text"
+            formControlName="emailId"
+            placeholder="Email ID"
+            class="input"
+          />
+          <input
+            type="text"
+            formControlName="password"
+            placeholder="Password"
+            class="input"
+          />
+        </div>
+        <div class="text-red-500 p-2">{{ loginErrorMsg }}</div>
+        <div class="card-actions justify-center">
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="loginForm.invalid"
+          >
+            Login
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
