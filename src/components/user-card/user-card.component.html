@@ -1,0 +1,14 @@
+<div class="card bg-base-400 w-76 shadow-sm" *ngIf="feed">
+  <figure>
+    <img src="{{ feed.photoUrl }}" alt="Shoes" />
+  </figure>
+  <div class="card-body">
+    <h2 class="card-title">{{ feed.firstName + " " + feed.lastName }}</h2>
+    <p>{{ feed.age + ", " + feed.gender }}</p>
+    <p>{{ feed.about }}</p>
+    <div class="card-actions justify-center my-4">
+      <button class="btn btn-sm btn-primary">IGNORE</button>
+      <button class="btn btn-sm btn-secondary">INTERESTED</button>
+    </div>
+  </div>
+</div>

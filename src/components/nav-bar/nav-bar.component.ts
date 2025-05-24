@@ -1,16 +1,16 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
-import { User } from '../state/user/user.model';
+import { User } from '../../state/user/user.model';
 import { Store } from '@ngrx/store';
-import { selectUser, selectUserState } from '../state/user/user.selectors';
+import { selectUser } from '../../state/user/user.selectors';
 import { CommonModule } from '@angular/common';
-import { logout } from '../state/user/user.actions';
-import { LogoutService } from '../../services/logout.service';
-import { Router } from '@angular/router';
+import { logout } from '../../state/user/user.actions';
+import { Router, RouterLink } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-nav-bar',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   standalone: true,
   templateUrl: './nav-bar.component.html',
   styleUrl: './nav-bar.component.css'
@@ -20,7 +20,7 @@ export class NavBarComponent {
 
 
   constructor(private store: Store,
-    private logoutService: LogoutService,
+    private logoutService: AuthService,
     private router: Router) {
     this.user$ = this.store.select(selectUser);
 

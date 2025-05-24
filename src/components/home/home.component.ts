@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { NavBarComponent } from "../nav-bar/nav-bar.component";
 import { Router, RouterOutlet } from '@angular/router';
 import { FooterComponent } from "../footer/footer.component";
-import { ProfileService } from '../../services/profile.service';
-import { loginSuccess } from '../state/user/user.actions';
+import { UserService } from '../../services/user.service';
+import { addUser } from '../../state/user/user.actions';
 import { Store } from '@ngrx/store';
 
 @Component({
@@ -14,7 +14,7 @@ import { Store } from '@ngrx/store';
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
-  constructor(private profileService: ProfileService, private store: Store, private router: Router) {
+  constructor(private profileService: UserService, private store: Store, private router: Router) {
 
   }
   ngOnInit() {
@@ -24,8 +24,7 @@ export class HomeComponent {
   fetchUser() {
     this.profileService.getUserProfile().subscribe({
       next: (response) => {
-        console.log(response)
-        this.store.dispatch(loginSuccess({ user: response.data }));
+        this.store.dispatch(addUser({ user: response?.data }));
       },
       error: (error) => {
         if (error.status === 401) {

@@ -8,7 +8,7 @@ import { Observable } from "rxjs";
     providedIn: 'root'
 })
 
-export class ProfileService {
+export class UserService {
     constructor(private http: HttpClient) {
 
     }
@@ -16,5 +16,16 @@ export class ProfileService {
     getUserProfile(): Observable<any> {
         const profileUrl = `${BASE_URL}/profile/view`
         return this.http.get(profileUrl, { withCredentials: true });
+    }
+    getFeed(): Observable<any> {
+        return this.http.get(`${BASE_URL}/user/feed`, { withCredentials: true });
+    }
+
+    updateProfile(data: any): Observable<any> {
+        return this.http.patch(`${BASE_URL}/profile/edit`, data, { withCredentials: true });
+    }
+
+    getUserConnections(): Observable<any> {
+        return this.http.get(`${BASE_URL}/user/connections`, { withCredentials: true });
     }
 }

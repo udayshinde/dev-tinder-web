@@ -6,7 +6,7 @@ import { BASE_URL } from '../utils/constants';
     providedIn: 'root'
 })
 
-export class LoginService {
+export class AuthService {
     loginUrl: any = `${BASE_URL}/login`;
     constructor(private http: HttpClient) {
 
@@ -14,5 +14,9 @@ export class LoginService {
     login(emailId: string, password: string): Observable<any> {
         const body = { emailId, password };
         return this.http.post(this.loginUrl, body, { withCredentials: true });
+    }
+
+    logout(): Observable<any> {
+        return this.http.post(`${BASE_URL}/logout`, {}, { withCredentials: true });
     }
 }

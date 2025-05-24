@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms'
-import { LoginService } from '../../services/login.service';
-import { loginSuccess } from '../state/user/user.actions';
+import { AuthService } from '../../services/auth.service';
+import { addUser } from '../../state/user/user.actions';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 
@@ -15,7 +15,7 @@ export class LoginComponent {
   loginForm: FormGroup;
   loginErrorMsg: string | null = null;
   constructor(private fb: FormBuilder,
-    private loginService: LoginService,
+    private loginService: AuthService,
     private store: Store,
     private router: Router) {
     this.loginForm = this.fb.group({
@@ -29,7 +29,7 @@ export class LoginComponent {
       this.loginService.login(emailId, password).subscribe({
         next: (res) => {
           console.log('Login Successful', res);
-          this.store.dispatch(loginSuccess({ user: res.user }));
+          this.store.dispatch(addUser({ user: res?.user }));
           this.router.navigate(['/feed'])
         },
         error: (error) => {

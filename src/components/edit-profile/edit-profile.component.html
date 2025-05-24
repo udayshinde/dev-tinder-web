@@ -1,0 +1,68 @@
+<div class="flex justify-center" *ngIf="user | async as user">
+  <div class="flex justify-center items-center my-5">
+    <div class="card card-border bg-base-300 w-96">
+      <div class="card-body">
+        <h2 class="card-title pb-4">Update your Profile</h2>
+        <form (ngSubmit)="onSubmit()" [formGroup]="updateProfileForm">
+          <div class="flex flex-col space-y-4">
+            <input
+              type="text"
+              formControlName="firstName"
+              placeholder="First Name"
+              class="input"
+            />
+            <input
+              type="text"
+              formControlName="lastName"
+              placeholder="Last Name"
+              class="input"
+            />
+            <input
+              type="text"
+              formControlName="photoUrl"
+              placeholder="Photo Url"
+              class="input"
+            />
+            <select formControlName="gender" class="input">
+              <option *ngFor="let g of genderArr" [value]="g.value">
+                {{ g.name }}
+              </option>
+            </select>
+            <input
+              type="number"
+              formControlName="age"
+              placeholder="Age"
+              class="input"
+            />
+            <input
+              type="text"
+              formControlName="about"
+              placeholder="About"
+              class="input"
+            />
+          </div>
+          <div class="text-red-500 p-2" *ngIf="loginErrorMsg">
+            {{ loginErrorMsg }}
+          </div>
+          <div class="card-actions justify-center pt-6">
+            <button
+              type="submit"
+              class="btn btn-primary"
+              [disabled]="updateProfileForm.invalid"
+            >
+              Update Profile
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="flex justify-center items-center my-5">
+    <app-user-card [feed]="user"></app-user-card>
+  </div>
+</div>
+<div class="toast toast-top toast-center" *ngIf="showToastMsg">
+  <div class="alert alert-success">
+    <span>{{ toastMsg }}</span>
+  </div>
+</div>
