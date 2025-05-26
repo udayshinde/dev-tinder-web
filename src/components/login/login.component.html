@@ -1,9 +1,25 @@
 <div class="flex justify-center items-center my-5">
   <div class="card card-border bg-base-300 w-96">
     <div class="card-body">
-      <h2 class="card-title">Login</h2>
+      <h2 class="card-title text-center">
+        {{ isSignup ? "Sign Up" : "Login" }}
+      </h2>
       <form (ngSubmit)="onSubmit()" [formGroup]="loginForm">
         <div class="flex flex-col space-y-4">
+          <ng-container *ngIf="isSignup">
+            <input
+              type="text"
+              formControlName="firstName"
+              placeholder="First Name"
+              class="input"
+            />
+            <input
+              type="text"
+              formControlName="lastName"
+              placeholder="Last Name"
+              class="input"
+            />
+          </ng-container>
           <input
             type="text"
             formControlName="emailId"
@@ -24,8 +40,13 @@
             class="btn btn-primary"
             [disabled]="loginForm.invalid"
           >
-            Login
+            {{ isSignup ? "Sign Up" : "Login" }}
           </button>
+        </div>
+        <div class="text-center">
+          <a class="text-red-600 inline-block pt-2" (click)="toggleMode()">
+            {{ isSignup ? "Existing User? Login here!" : "New User? Sign Up!" }}
+          </a>
         </div>
       </form>
     </div>

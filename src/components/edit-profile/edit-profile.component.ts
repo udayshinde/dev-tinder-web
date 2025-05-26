@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { distinctUntilChanged, filter, take } from 'rxjs';
+import { filter, take } from 'rxjs';
 import { UserCardComponent } from '../user-card/user-card.component';
 import { UserService } from '../../services/user.service';
 import { Store } from '@ngrx/store';
@@ -24,28 +24,27 @@ export class EditProfileComponent {
 
   }
   ngOnInit() {
-    this.user.pipe(
-      filter(user => !!user), // ignore null values
-      take(1) // if you only want the initial value
-    ).subscribe((user: any) => {
-      this.updateProfileForm = this.fb.group({
-        firstName: [user.firstName],
-        lastName: [user.lastName],
-        photoUrl: [user.photoUrl],
-        age: [user.age],
-        gender: [user.gender],
-        about: [user.about]
-      });
-    });
+    // this.user.pipe(
+    //   filter(user => !!user), // ignore null values
+    //   take(1) // if you only want the initial value
+    // ).subscribe((user: any) => {
 
-    this.updateProfileForm.valueChanges.subscribe(() => {
-      if (this.loginErrorMsg && this.updateProfileForm.dirty) {
-        this.loginErrorMsg = null;
-      }
-    });
+    // });
 
   }
   ngOnChanges(changes: SimpleChanges): void {
+    if (changes['user']) {
+      console.log(this.user)
+      const { firstName, lastName, age, gender, about, photoUrl } = this.user;
+      this.updateProfileForm = this.fb.group({
+        firstName: [firstName],
+        lastName: [lastName],
+        photoUrl: [photoUrl],
+        age: [age],
+        gender: [gender],
+        about: [about]
+      });
+    }
   }
   onSubmit() {
     if (this.updateProfileForm.valid) {

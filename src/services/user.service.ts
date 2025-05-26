@@ -28,4 +28,7 @@ export class UserService {
     getUserConnections(): Observable<any> {
         return this.http.get(`${BASE_URL}/user/connections`, { withCredentials: true });
     }
+    getUserRequests(): Observable<any> {
+        return this.http.get(`${BASE_URL}/user/requests/recieved`, { withCredentials: true })
+    }
 }

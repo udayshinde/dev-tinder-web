@@ -9,10 +9,15 @@ import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { userFeatureKey, userReducer } from '../state/user/user.reducer';
 import { feedFeatureKey, feedReducer } from '../state/feed/feed.reducer';
 import { connectionsFeatureKey, connectionsReducer } from '../state/connections/connections.reducer';
+import { requesteatureKey, requestReucer } from '../state/requests/requests.reducer';
 
 export const appConfig: ApplicationConfig = {
   providers: [provideHttpClient(),
-  provideStore({ [userFeatureKey]: userReducer, [feedFeatureKey]: feedReducer, [connectionsFeatureKey]: connectionsReducer }),
+  provideStore({
+    [userFeatureKey]: userReducer, [feedFeatureKey]: feedReducer,
+    [connectionsFeatureKey]: connectionsReducer,
+    [requesteatureKey]: requestReucer
+  }),
   provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideEffects(), provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() })
   ]
 };

@@ -19,4 +19,8 @@ export class AuthService {
     logout(): Observable<any> {
         return this.http.post(`${BASE_URL}/logout`, {}, { withCredentials: true });
     }
+
+    signUp(payload: any): Observable<any> {
+        return this.http.post(`${BASE_URL}/signup`, payload, { withCredentials: true })
+    }
 }

@@ -5,6 +5,7 @@ import { LoginComponent } from '../components/login/login.component';
 import { FeedComponent } from '../components/feed/feed.component';
 import { EditProfileComponent } from '../components/edit-profile/edit-profile.component';
 import { ConnectionsComponent } from '../components/connections/connections.component';
+import { RequestsComponent } from '../components/requests/requests.component';
 
 export const routes: Routes = [
     {
@@ -26,6 +27,10 @@ export const routes: Routes = [
             {
                 path: 'connections',
                 component: ConnectionsComponent
+            },
+            {
+                path: 'requests',
+                component: RequestsComponent
             }
         ]
     },

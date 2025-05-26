@@ -1,0 +1,45 @@
+<ng-container *ngIf="requests$ | async as requests">
+  <h1
+    class="text-4xl text-center pb-2 pt-6 bg-red-200"
+    *ngIf="requests.length === 0"
+  >
+    No Connection requests found!
+  </h1>
+  <div *ngIf="requests.length > 0">
+    <h1 class="text-4xl text-center pb-2 pt-2 bg-red-200">Requests</h1>
+    <div
+      class="card card-side bg-base-100 shadow-sm p-4.5 pb-10 m-auto w-1/2"
+      *ngFor="let req of requests$ | async as requests"
+    >
+      <figure>
+        <img
+          src="{{ req.photoUrl }}"
+          alt="Movie"
+          style="height: 250px; width: 200px"
+          class="rounded-4xl"
+        />
+      </figure>
+      <div class="card-body">
+        <h2 class="card-title">
+          {{ req.firstName + " " + req.lastName }}
+        </h2>
+        <h3>{{ req.age + "," + req.gender }}</h3>
+        <h3>{{ req.about }}</h3>
+        <div class="card-actions justify-end mt-4">
+          <button
+            class="btn btn-secondary"
+            (click)="onAction('accepted', req.requestId)"
+          >
+            Approve
+          </button>
+          <button
+            class="btn btn-primary"
+            (click)="onAction('rejected', req.requestId)"
+          >
+            Ignore
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>

@@ -1,21 +1,32 @@
-<h1 class="text-4xl text-center pb-2 pt-2 bg-red-200">Connections</h1>
-<div
-  class="card card-side bg-base-100 shadow-sm p-4.5 pb-10 m-auto w-1/2"
-  *ngFor="let conn of connections$ | async as connections"
->
-  <figure>
-    <img
-      src="{{ conn.photoUrl }}"
-      alt="Movie"
-      style="height: 250px; width: 200px"
-      class="rounded-4xl"
-    />
-  </figure>
-  <div class="card-body">
-    <h2 class="card-title">
-      {{ conn.firstName + " " + conn.lastName }}
-    </h2>
-    <h3>{{ conn.age + "," + conn.gender }}</h3>
-    <h3>{{ conn.about }}</h3>
+<ng-container *ngIf="connections$ | async as connections">
+  <h1
+    class="text-4xl text-center pb-2 pt-3 bg-red-200"
+    *ngIf="connections.length === 0"
+  >
+    No Connection requests found!
+  </h1>
+
+  <div *ngIf="connections.length > 0">
+    <h1 class="text-4xl text-center pb-2 pt-2 bg-red-200">Connections</h1>
+    <div
+      class="card card-side bg-base-100 shadow-sm p-4.5 pb-10 m-auto w-1/2"
+      *ngFor="let conn of connections$ | async as connections"
+    >
+      <figure>
+        <img
+          src="{{ conn.photoUrl }}"
+          alt="Movie"
+          style="height: 250px; width: 200px"
+          class="rounded-4xl"
+        />
+      </figure>
+      <div class="card-body">
+        <h2 class="card-title">
+          {{ conn.firstName + " " + conn.lastName }}
+        </h2>
+        <h3>{{ conn.age + "," + conn.gender }}</h3>
+        <h3>{{ conn.about }}</h3>
+      </div>
+    </div>
   </div>
-</div>
+</ng-container>

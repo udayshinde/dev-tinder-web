@@ -7,6 +7,9 @@ import { CommonModule } from '@angular/common';
 import { logout } from '../../state/user/user.actions';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { removeFeed } from '../../state/feed/feed.action';
+import { removeRequests } from '../../state/requests/requests.action';
+import { removeConnections } from '../../state/connections/connections.action';
 
 @Component({
   selector: 'app-nav-bar',
@@ -39,6 +42,9 @@ export class NavBarComponent {
     this.logoutService.logout().subscribe({
       next: (res) => {
         this.store.dispatch(logout());
+        this.store.dispatch(removeFeed());
+        this.store.dispatch(removeRequests());
+        this.store.dispatch(removeConnections());
         this.router.navigate(['/login']);
       },
       error: (err) => {

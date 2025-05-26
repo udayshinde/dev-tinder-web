@@ -4,10 +4,11 @@ import { Store } from '@ngrx/store';
 import { selectUser } from '../../state/user/user.selectors';
 import { Observable } from 'rxjs';
 import { User } from '../../state/user/user.model';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-profile',
-  imports: [EditProfileComponent],
+  imports: [EditProfileComponent, CommonModule],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })
