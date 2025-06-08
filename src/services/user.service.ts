@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { BASE_URL } from "../utils/constants";
 import { Observable } from "rxjs";
+import { environment } from "../environments/environment";
 
 
 @Injectable({
@@ -14,21 +14,21 @@ export class UserService {
     }
 
     getUserProfile(): Observable<any> {
-        const profileUrl = `${BASE_URL}/profile/view`
+        const profileUrl = `${environment.apiBaseUrl}/profile/view`
         return this.http.get(profileUrl, { withCredentials: true });
     }
     getFeed(): Observable<any> {
-        return this.http.get(`${BASE_URL}/user/feed`, { withCredentials: true });
+        return this.http.get(`${environment.apiBaseUrl}/user/feed`, { withCredentials: true });
     }
 
     updateProfile(data: any): Observable<any> {
-        return this.http.patch(`${BASE_URL}/profile/edit`, data, { withCredentials: true });
+        return this.http.patch(`${environment.apiBaseUrl}/profile/edit`, data, { withCredentials: true });
     }
 
     getUserConnections(): Observable<any> {
-        return this.http.get(`${BASE_URL}/user/connections`, { withCredentials: true });
+        return this.http.get(`${environment.apiBaseUrl}/user/connections`, { withCredentials: true });
     }
     getUserRequests(): Observable<any> {
-        return this.http.get(`${BASE_URL}/user/requests/recieved`, { withCredentials: true })
+        return this.http.get(`${environment.apiBaseUrl}/user/requests/recieved`, { withCredentials: true })
     }
 }

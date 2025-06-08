@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core'
 import { HttpClient } from "@angular/common/http";
 import { Observable } from 'rxjs';
-import { BASE_URL } from '../utils/constants';
+import { environment } from '../environments/environment';
+
 @Injectable({
     providedIn: 'root'
 })
 
 export class AuthService {
-    loginUrl: any = `${BASE_URL}/login`;
+    loginUrl: any = `${environment.apiBaseUrl}/login`;
     constructor(private http: HttpClient) {
 
     }
@@ -17,10 +18,10 @@ export class AuthService {
     }
 
     logout(): Observable<any> {
-        return this.http.post(`${BASE_URL}/logout`, {}, { withCredentials: true });
+        return this.http.post(`${environment.apiBaseUrl}/logout`, {}, { withCredentials: true });
     }
 
     signUp(payload: any): Observable<any> {
-        return this.http.post(`${BASE_URL}/signup`, payload, { withCredentials: true })
+        return this.http.post(`${environment.apiBaseUrl}/signup`, payload, { withCredentials: true })
     }
 }
