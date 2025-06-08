@@ -5,6 +5,7 @@ import { addUser } from '../../state/user/user.actions';
 import { Store } from '@ngrx/store';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -16,6 +17,9 @@ export class LoginComponent {
   isSignup: boolean = false;
   loginForm!: FormGroup;
   loginErrorMsg: string | null = null;
+
+  private destroy$ = new Subject<void>();
+
   constructor(private fb: FormBuilder,
     private loginService: AuthService,
     private store: Store,
@@ -27,16 +31,17 @@ export class LoginComponent {
       if (this.isSignup) {
         //SIGNUP CODE HERE
         console.log(this.loginForm)
-        this.loginService.signUp(this.loginForm.value).subscribe({
-          next: (res) => {
-            this.store.dispatch(addUser({ user: res?.data?.user }));
-            this.router.navigate(['/profile'])
-          },
-          error: (error) => {
-            console.log('Login Failed', error);
-            this.loginErrorMsg = error?.error?.message || 'Signup failed. Please try again.';
-          }
-        })
+        this.loginService.signUp(this.loginForm.value)
+          .pipe(takeUntil(this.destroy$)).subscribe({
+            next: (res) => {
+              this.store.dispatch(addUser({ user: res?.data?.user }));
+              this.router.navigate(['/profile'])
+            },
+            error: (error) => {
+              console.log('Login Failed', error);
+              this.loginErrorMsg = error?.error?.message || 'Signup failed. Please try again.';
+            }
+          })
       } else {
         const { emailId, password } = this.loginForm.value;
         this.loginService.login(emailId, password).subscribe({
@@ -68,5 +73,10 @@ export class LoginComponent {
   toggleMode() {
     this.isSignup = !this.isSignup;
     this.buildForm();
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }
