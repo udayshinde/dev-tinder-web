@@ -10,7 +10,7 @@ RUN npm install
 
 # Copy the rest of the code and build the Angular app
 COPY . .
-RUN npm run build -- --configuration production --project dev-tinder-web
+RUN npm run build --configuration production
 
 # Stage 2: Serve with Nginx
 FROM nginx:alpine
@@ -19,7 +19,7 @@ FROM nginx:alpine
 RUN rm -rf /usr/share/nginx/html/*
 
 # Copy built Angular app to nginx public folder
-COPY --from=build /app/dist/devtinder /usr/share/nginx/html
+COPY --from=build /app/dist/devtinder/browser /usr/share/nginx/html
 
 # Copy custom nginx config (optional, skip if not using)
 # COPY nginx.conf /etc/nginx/conf.d/default.conf
