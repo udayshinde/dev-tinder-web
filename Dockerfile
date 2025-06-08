@@ -10,7 +10,7 @@ RUN npm install
 
 # Copy the rest of the code and build the Angular app
 COPY . .
-RUN npm run build --configuration production
+RUN npm run build -- --configuration production --project dev-tinder-web
 
 # Stage 2: Serve with Nginx
 FROM nginx:alpine
