@@ -1,4 +1,4 @@
 export const environment = {
     production: true,
-    apiBaseUrl: "https://dev-tinder.info/api" // your production backend URL with port
+    apiBaseUrl: "http://api.dev-tinder.info:7777/api" // your production backend URL with port
 };
