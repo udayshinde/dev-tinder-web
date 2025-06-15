@@ -19,6 +19,7 @@ export class HomeComponent {
   }
   ngOnInit() {
     this.fetchUser();
+    console.log("called");
   }
 
   fetchUser() {
@@ -27,9 +28,9 @@ export class HomeComponent {
         this.store.dispatch(addUser({ user: response?.data }));
       },
       error: (error) => {
-        if (error.status === 401) {
-          this.router.navigate(['/login']);
-        }
+        // if (error.status === 401) {
+        //   this.router.navigate(['/login']);
+        // }
         console.error('Error fetching user profile:', error);
       }
     })

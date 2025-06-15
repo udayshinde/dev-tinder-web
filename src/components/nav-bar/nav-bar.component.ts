@@ -4,7 +4,7 @@ import { User } from '../../state/user/user.model';
 import { Store } from '@ngrx/store';
 import { selectUser } from '../../state/user/user.selectors';
 import { CommonModule } from '@angular/common';
-import { logout } from '../../state/user/user.actions';
+import { addUser, logout } from '../../state/user/user.actions';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { removeFeed } from '../../state/feed/feed.action';
@@ -26,18 +26,16 @@ export class NavBarComponent {
     private logoutService: AuthService,
     private router: Router) {
     this.user$ = this.store.select(selectUser);
-
   }
 
   ngOnInit() {
-
   }
   ngOnChanges() {
     this.user$.subscribe((user) => {
       console.log(user);
     })
-
   }
+
   logout() {
     this.logoutService.logout().subscribe({
       next: (res) => {

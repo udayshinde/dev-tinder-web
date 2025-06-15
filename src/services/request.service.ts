@@ -11,9 +11,9 @@ export class RequestService {
 
     }
     sendOrIgnoreRequest(status: any, toUserId: any): Observable<any> {
-        return this.http.post(`${environment.apiBaseUrl}/request/send/${status}/${toUserId}`, {}, { withCredentials: true })
+        return this.http.post(`${environment.apiBaseUrl}/request/send/${status}/${toUserId}`, {})
     }
     acceptOrRejectRequest(status: any, toUserId: any): Observable<any> {
-        return this.http.post(`${environment.apiBaseUrl}/request/review/${status}/${toUserId}`, {}, { withCredentials: true })
+        return this.http.post(`${environment.apiBaseUrl}/request/review/${status}/${toUserId}`, {})
     }
 }

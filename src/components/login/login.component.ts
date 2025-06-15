@@ -6,10 +6,11 @@ import { Store } from '@ngrx/store';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Subject, takeUntil } from 'rxjs';
+import { NavBarComponent } from "../nav-bar/nav-bar.component";
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule, RouterModule, CommonModule],
+  imports: [ReactiveFormsModule, RouterModule, CommonModule, NavBarComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })

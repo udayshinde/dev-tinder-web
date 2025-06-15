@@ -15,20 +15,20 @@ export class UserService {
 
     getUserProfile(): Observable<any> {
         const profileUrl = `${environment.apiBaseUrl}/profile/view`
-        return this.http.get(profileUrl, { withCredentials: true });
+        return this.http.get(profileUrl);
     }
     getFeed(): Observable<any> {
-        return this.http.get(`${environment.apiBaseUrl}/user/feed`, { withCredentials: true });
+        return this.http.get(`${environment.apiBaseUrl}/user/feed`);
     }
 
     updateProfile(data: any): Observable<any> {
-        return this.http.patch(`${environment.apiBaseUrl}/profile/edit`, data, { withCredentials: true });
+        return this.http.patch(`${environment.apiBaseUrl}/profile/edit`, data);
     }
 
     getUserConnections(): Observable<any> {
-        return this.http.get(`${environment.apiBaseUrl}/user/connections`, { withCredentials: true });
+        return this.http.get(`${environment.apiBaseUrl}/user/connections`);
     }
     getUserRequests(): Observable<any> {
-        return this.http.get(`${environment.apiBaseUrl}/user/requests/recieved`, { withCredentials: true })
+        return this.http.get(`${environment.apiBaseUrl}/user/requests/recieved`)
     }
 }

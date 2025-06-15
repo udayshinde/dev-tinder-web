@@ -6,6 +6,7 @@ import { UserCardComponent } from '../user-card/user-card.component';
 import { UserService } from '../../services/user.service';
 import { Store } from '@ngrx/store';
 import { addUser } from '../../state/user/user.actions';
+import { CanComponentDeactivate } from '../../guards/edit-profile.guard';
 
 @Component({
   selector: 'app-edit-profile',
@@ -13,13 +14,14 @@ import { addUser } from '../../state/user/user.actions';
   templateUrl: './edit-profile.component.html',
   styleUrl: './edit-profile.component.css'
 })
-export class EditProfileComponent {
+export class EditProfileComponent implements CanComponentDeactivate {
   @Input() user: any;
   genderArr = [{ value: 'male', name: 'Male' }, { value: 'female', name: 'Female' }, { value: 'otehr', name: 'Other' }]
   loginErrorMsg: any = null;
   toastMsg: any = null;
   showToastMsg: boolean = false;
   updateProfileForm!: FormGroup;
+  formDirty: boolean = false;
   constructor(private fb: FormBuilder, private userService: UserService, private store: Store) {
 
   }
@@ -31,9 +33,11 @@ export class EditProfileComponent {
 
     // });
 
+
   }
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['user']) {
+      this.formDirty = true;
       console.log(this.user)
       const { firstName, lastName, age, gender, about, photoUrl } = this.user;
       this.updateProfileForm = this.fb.group({
@@ -46,6 +50,14 @@ export class EditProfileComponent {
       });
     }
   }
+
+  canDeactivate(): boolean {
+    if (this.formDirty) {
+      return confirm('You have unsaved changes. Do you really want to leave?');
+    }
+    return true;
+  }
+
   onSubmit() {
     if (this.updateProfileForm.valid) {
       this.userService.updateProfile(this.updateProfileForm.value).subscribe({

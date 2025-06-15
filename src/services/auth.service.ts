@@ -14,14 +14,14 @@ export class AuthService {
     }
     login(emailId: string, password: string): Observable<any> {
         const body = { emailId, password };
-        return this.http.post(this.loginUrl, body, { withCredentials: true });
+        return this.http.post(this.loginUrl, body);
     }
 
     logout(): Observable<any> {
-        return this.http.post(`${environment.apiBaseUrl}/logout`, {}, { withCredentials: true });
+        return this.http.post(`${environment.apiBaseUrl}/logout`, {});
     }
 
     signUp(payload: any): Observable<any> {
-        return this.http.post(`${environment.apiBaseUrl}/signup`, payload, { withCredentials: true })
+        return this.http.post(`${environment.apiBaseUrl}/signup`, payload)
     }
 }

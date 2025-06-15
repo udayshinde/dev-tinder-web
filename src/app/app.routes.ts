@@ -6,19 +6,24 @@ import { FeedComponent } from '../components/feed/feed.component';
 import { EditProfileComponent } from '../components/edit-profile/edit-profile.component';
 import { ConnectionsComponent } from '../components/connections/connections.component';
 import { RequestsComponent } from '../components/requests/requests.component';
+import { authGuard } from '../guards/auth.guard';
+import { editProfileGuard } from '../guards/edit-profile.guard';
 
 export const routes: Routes = [
     {
+        path: 'login',
+        component: LoginComponent
+    },
+    {
         path: '',
         component: HomeComponent,
+        canActivate: [authGuard],
         children: [
-            {
-                path: 'login',
-                component: LoginComponent
-            },
+
             {
                 path: 'profile',
-                component: ProfileComponent
+                component: ProfileComponent,
+                canDeactivate: [editProfileGuard]
             },
             {
                 path: 'feed',
