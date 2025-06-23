@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { EditProfileComponent } from "../edit-profile/edit-profile.component";
 import { Store } from '@ngrx/store';
 import { selectUser } from '../../state/user/user.selectors';
@@ -13,10 +13,14 @@ import { CommonModule } from '@angular/common';
   styleUrl: './profile.component.css'
 })
 export class ProfileComponent {
+  @ViewChild(EditProfileComponent) editProfileComp!: EditProfileComponent;
   user$!: Observable<User | null>;
 
   constructor(private store: Store) {
 
+  }
+  canDeactivate(): boolean {
+    return this.editProfileComp?.canDeactivate?.() ?? true;
   }
   ngOnInit() {
     this.user$ = this.store.select(selectUser);

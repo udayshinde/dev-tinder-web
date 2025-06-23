@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { Store } from '@ngrx/store';
 import { addConnections } from '../../state/connections/connections.action';
 import { selectConnections } from '../../state/connections/connections.selector';
 import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
+import { ActivatedRoute, Route } from '@angular/router';
 
 @Component({
   selector: 'app-connections',
@@ -14,21 +15,18 @@ import { Observable } from 'rxjs';
 })
 export class ConnectionsComponent {
   connections$!: Observable<any> | null;
-  constructor(private userService: UserService, private store: Store) {
+  constructor(private route: ActivatedRoute, private store: Store) {
 
   }
   ngOnInit() {
-    this.getConnections();
+    this.route.data.subscribe(data => {
+      this.store.dispatch(addConnections({ connections: data?.['connections']?.data }));
+    });
+
     this.connections$ = this.store.select(selectConnections);
   }
-  getConnections() {
-    this.userService.getUserConnections().subscribe({
-      next: (res) => {
-        this.store.dispatch(addConnections({ connections: res?.data }))
-      },
-      error: (err) => {
-        console.error('Error fetching connections:', err);
-      }
-    })
+  ngOnDestroy() {
+    // Cleanup if necessary
+    this.connections$ = null;
   }
 }

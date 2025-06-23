@@ -11,7 +11,8 @@ import { RequestService } from '../../services/request.service';
   selector: 'app-requests',
   imports: [CommonModule],
   templateUrl: './requests.component.html',
-  styleUrl: './requests.component.css'
+  styleUrl: './requests.component.css',
+  standalone: true
 })
 export class RequestsComponent {
   requests$!: Observable<any> | null;
@@ -23,6 +24,7 @@ export class RequestsComponent {
 
   }
   ngOnInit() {
+    console.log('Requests Component Initialized');
     this.getUserRequests();
     this.requests$ = this.store.select(selectRequests)
   }

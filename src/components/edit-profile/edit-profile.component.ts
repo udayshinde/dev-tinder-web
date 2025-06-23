@@ -26,19 +26,11 @@ export class EditProfileComponent implements CanComponentDeactivate {
 
   }
   ngOnInit() {
-    // this.user.pipe(
-    //   filter(user => !!user), // ignore null values
-    //   take(1) // if you only want the initial value
-    // ).subscribe((user: any) => {
-
-    // });
-
-
+    console.log("edit profile");
   }
   ngOnChanges(changes: SimpleChanges): void {
+    console.log(changes)
     if (changes['user']) {
-      this.formDirty = true;
-      console.log(this.user)
       const { firstName, lastName, age, gender, about, photoUrl } = this.user;
       this.updateProfileForm = this.fb.group({
         firstName: [firstName],
@@ -52,7 +44,7 @@ export class EditProfileComponent implements CanComponentDeactivate {
   }
 
   canDeactivate(): boolean {
-    if (this.formDirty) {
+    if (this.updateProfileForm.dirty) {
       return confirm('You have unsaved changes. Do you really want to leave?');
     }
     return true;
