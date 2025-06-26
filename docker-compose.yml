@@ -1,0 +1,28 @@
+version: "3.8"
+
+services:
+  frontend:
+    build:
+      context: ./dev-tinder-web
+    container_name: dev-tinder-web
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - dev-tinder-net
+
+  backend:
+    build:
+      context: ./namaste-node
+    container_name: namaste-node
+    ports:
+      - "7777:7777"
+    env_file:
+      - ./namaste-node/.env  # Optional, only if you use .env
+    networks:
+      - dev-tinder-net
+
+networks:
+  dev-tinder-net:
+    driver: bridge
