@@ -3,7 +3,7 @@ version: "3.8"
 services:
   frontend:
     build:
-      context: ./dev-tinder-web
+      context: .
     container_name: dev-tinder-web
     ports:
       - "80:80"
